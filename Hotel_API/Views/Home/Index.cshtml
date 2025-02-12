@@ -1,0 +1,138 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = null;
+}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Rooms Dashboard</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 90%;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 1.2rem;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #333;
+            color: white;
+        }
+
+        .available {
+            background-color: #e8f5e9;
+        }
+
+        .booked {
+            background-color: #ffebee;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 120px;
+            height: 45px;
+            text-align: center;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            position: relative;
+            text-align: center;
+            line-height: 25px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .available .status-indicator {
+            background-color: green;
+        }
+
+        .booked .status-indicator {
+            background-color: red;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+            transition: background-color 0.3s;
+        }
+    </style>
+</head>
+
+    <body>
+        <div class="container">
+            <h2>Hotel Rooms Dashboard</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Room Name</th>
+                        <th>Type</th>
+                        <th>Price</th>
+                        <th>Availability</th>
+                    </tr>
+                </thead>
+                <tbody id="roomTableBody"></tbody>
+            </table>
+        </div>
+
+        <script>
+            const rooms = [
+                { id: 1, name: "Room 101", type: "Single", price: "$50", available: true },
+                { id: 2, name: "Room 102", type: "Double", price: "$80", available: false },
+                { id: 3, name: "Room 103", type: "Suite", price: "$120", available: true },
+                { id: 4, name: "Room 104", type: "Deluxe", price: "$150", available: false },
+                { id: 5, name: "Room 105", type: "Single", price: "$50", available: true }
+            ];
+
+            function renderRooms() {
+                const roomTableBody = document.getElementById("roomTableBody");
+                roomTableBody.innerHTML = "";
+
+                rooms.forEach(room => {
+                    const row = document.createElement("tr");
+                    row.classList.add(room.available ? "available" : "booked");
+
+                    row.innerHTML = `
+                        <td>${room.name}</td>
+                        <td>${room.type}</td>
+                        <td>${room.price}</td>
+                        <td>
+                            <div class="status-indicator" onclick="toggleRoomStatus(${room.id})">
+                                ${room.available ? "Available" : "Booked"}
+                            </div>
+                        </td>
+                    `;
+                    roomTableBody.appendChild(row);
+                });
+            }
+
+            function toggleRoomStatus(roomId) {
+                const room = rooms.find(r => r.id === roomId);
+                room.available = !room.available;
+                renderRooms();
+            }
+
+            renderRooms();
+        </script>
+    </body>
