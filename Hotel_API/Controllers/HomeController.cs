@@ -1,20 +1,32 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using Hotel_API;
 
-namespace Hotel_API.Controllers
+public class HomeController : Controller
 {
-    public class HomeController : Controller
+    private readonly AppDbContext _context;
+
+    public HomeController(AppDbContext context)
     {
-        private readonly ILogger<HomeController> _logger;
+        _context = context;
+    }
 
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
+    public IActionResult Index()
+    {
+        var rooms = _context.Rooms.ToList();
+        return View(rooms);
+    }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
+    [HttpPost]
+    public JsonResult ToggleStatus(int id)
+    {
+        var room = _context.Rooms.FirstOrDefault(r => r.Id == id);
+        if (room == null)
+            return Json(new { success = false, message = "Room not found" });
+
+        room.UserId = room.UserId == null ? 1 : null;
+        _context.SaveChanges();
+
+        return Json(new { success = true });
     }
 }
