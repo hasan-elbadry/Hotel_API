@@ -34,6 +34,5 @@ namespace Hotel_API.Models
         public string SpokenLanguage { get; set; } = string.Empty;
 
         public List<Room> Rooms { get; set; }
-
     }
 }

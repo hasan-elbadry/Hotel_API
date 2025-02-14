@@ -5,7 +5,7 @@ namespace Hotel_API.Dtos
     public class BookRoomDto
     {
 
-        public int roomId { get; set; }
+        public string roomNumber { get; set; }
 
         public int UserId { get; set; }
 

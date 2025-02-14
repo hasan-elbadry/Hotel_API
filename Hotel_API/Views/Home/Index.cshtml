@@ -89,6 +89,7 @@
         <table>
             <thead>
                 <tr>
+                    <th>Hotel Name</th>
                     <th>Room Name</th>
                     <th>Type</th>
                     <th>Price</th>
@@ -99,8 +100,9 @@
                 @foreach (var room in Model)
                 {
                     <tr id="room-@room.Id" class="@(room.UserId == null ? "available" : "booked")">
+                        <td>@room.Hotel.Name</td>
                         <td>@room.RoomNumber</td>
-                        <td>@room.Type</td>
+                        <td>@room.RoomType</td>
                         <td>@room.Price.ToString("C")</td>
                         <td>
                             <div class="status-indicator" onclick="toggleRoomStatus(@room.Id, this)">
@@ -116,7 +118,7 @@
     <script>
         setInterval(() => {
             location.reload();
-        }, 500);
+        }, 2000);
 
 function toggleRoomStatus(roomId, element) {
     fetch(`/Home/ToggleStatus?id=${roomId}`, { method: "POST" })

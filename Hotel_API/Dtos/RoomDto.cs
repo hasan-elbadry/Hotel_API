@@ -1,13 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Hotel_API.Models
+﻿namespace Hotel_API.Dtos
 {
-    public class Room
+    public class RoomDto
     {
-        public int Id { get; set; }
-
         public string RoomNumber { get; set; }
-        public string Images { get; set; }
+        public List<string> Images { get; set; }
         public int OfferPresentage { get; set; }
         public string RoomType { get; set; }
         public string BedType { get; set; }
@@ -15,16 +11,10 @@ namespace Hotel_API.Models
         public double Price { get; set; }
         public double OldPrice { get; set; }
 
-        public string Services { get; set; }
+        public List<List<string>> Services { get; set; }
         public string RoomSize { get; set; }
         public string RoomDescription { get; set; }
         public string View { get; set; }
-        public string Facilities { get; set; }
-
-        public int HotelId { get; set; }
-        public Hotel Hotel { get; set; }
-
-        public int? UserId { get; set; } 
-        public User? User { get; set; }
+        public List<string> Facilities { get; set; }
     }
 }

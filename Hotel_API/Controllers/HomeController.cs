@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Hotel_API;
+using Microsoft.EntityFrameworkCore;
 
 public class HomeController : Controller
 {
@@ -13,7 +14,7 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        var rooms = _context.Rooms.ToList();
+        var rooms = _context.Rooms.Include(x=>x.Hotel).ToList();
         return View(rooms);
     }
 
