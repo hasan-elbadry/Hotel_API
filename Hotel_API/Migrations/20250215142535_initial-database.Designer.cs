@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hotel_API.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250214225017_initial-database")]
+    [Migration("20250215142535_initial-database")]
     partial class initialdatabase
     {
         /// <inheritdoc />
